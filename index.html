@@ -3,216 +3,203 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>現在のセクション</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <title>Section Progress</title>
   <style>
     body {
-      font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", sans-serif;
-      text-align: center;
-      background-color: #ffffff;
-      padding: 40px;
-      color: #4d4d4d;
-      transition: background-color 0.3s, color 0.3s;
+      font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "Meiryo", "メイリオ", sans-serif;
+      color: #333;
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     body.dark {
-      background-color: #000000;
-      color: #ffffff;
+      color: rgba(255, 255, 255, 0.6);
+      background-color: #333;
     }
 
-    h1 {
-      font-size: 32px;
-      margin-bottom: 20px;
+    .toggle-theme {
+      font-size: 2rem;
+      cursor: pointer;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: inherit;
+    }
+
+    .toggle-theme.dark {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    #current-section {
+      font-size: 2rem;
+      font-weight: 300;
+      margin-top: 1rem;
     }
 
     .section-container {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
-      padding: 5px 10px;
-      border-radius: 5px;
+      margin: 0.5rem 0;
     }
 
     .section-number {
-      flex-shrink: 0;
-      font-size: 18px;
-      font-weight: bold;
-      width: 20px;
+      width: 2rem;
+      text-align: center;
+    }
+
+    .section-label {
+      margin-left: 0.5rem;
+      position: absolute;
+      bottom: -1rem;
+    }
+
+    .section-time {
+      width: 4rem;
+      font-size: 0.8rem;
+      font-weight: 300;
     }
 
     .progress-bar {
       flex-grow: 1;
-      height: 20px;
-      background-color: #dddddd;
-      border-radius: 5px;
-      margin: 0 10px;
+      height: 0.5rem;
+      background-color: #ddd;
       position: relative;
-      overflow: hidden;
     }
 
     .progress-bar-inner {
-      position: absolute;
-      top: 0;
-      left: 0;
       height: 100%;
-      background-color: #dddddd;
-      border-radius: 5px;
-    }
-
-    .section-time {
-      flex-shrink: 0;
-      font-size: 14px;
-      width: 40px;
-    }
-
-    .section-label {
-      font-size: 14px;
-      color: #999999;
+      position: absolute;
     }
 
     .progress-bar-marker {
-      position: absolute;
-      top: 0;
-      bottom: 0;
       width: 1px;
-      background-color: #aaaaaa;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.2);
+      position: absolute;
     }
 
     .progress-bar-time {
+      font-size: 0.8rem;
+      font-weight: 300;
       position: absolute;
-      top: -20px;
-      font-size: 12px;
-      color: #000000;
+      transform: translate(-50%, -100%);
     }
 
-    .toggle-theme {
-      margin-top: 20px;
-      font-size: 14px;
-      padding: 5px 10px;
-      border: none;
-      background-color: transparent;
-      color: #4d4d4d;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background-color 0.3s, color 0.3s;
+    .progress-bar-inner.dark {
+      background-color: rgba(255, 255, 255, 0.6);
     }
 
-    .toggle-theme.dark {
-      color: #ffffff;
+    .progress-bar-marker.dark {
+      background-color: rgba(255, 255, 255, 0.2);
     }
-
   </style>
 </head>
 <body>
-  <h1 id="current-section"></h1>
+  <div id="current-section"></div>
   <div id="section-list"></div>
-  <button class="toggle-theme"><span class="material-icons">brightness_medium</span></button>
-
+  <div class="toggle-theme" onclick="toggleTheme()">&#9680;</div>
   <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      document.querySelector('.toggle-theme').classList.toggle('dark');
+    }
+
     const sections = [
       { start: 5, end: 7 },
       { start: 7, end: 10 },
       { start: 10, end: 13 },
       { start: 13, end: 16 },
-  { start: 16, end: 19 },
-  { start: 19, end: 22, label: "Journal" },
-  { start: 22, end: 24, label: "END" }
+      { start: 16, end: 19 },
+      { start: 19, end: 22, label: "Journal" },  { start: 22, end: 24, label: "END" },
 ];
 
-const currentSectionElement = document.getElementById('current-section');
-const sectionList = document.getElementById('section-list');
-const toggleThemeButton = document.querySelector('.toggle-theme');
-
-toggleThemeButton.addEventListener('click', () => {
-  document.body.classList.toggle('dark');
-  toggleThemeButton.classList.toggle('dark');
-});
-
-function updateDisplay() {
+function getCurrentSection() {
   const now = new Date();
-  let currentSection = -1;
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
 
   for (let i = 0; i < sections.length; i++) {
-    if (now.getHours() >= sections[i].start && now.getHours() < sections[i].end) {
-      currentSection = i + 1;
-      break;
+    if (hours >= sections[i].start && hours < sections[i].end) {
+      return i + 1;
     }
   }
 
-  currentSectionElement.innerText = `Now on Section ${currentSection}`;
+  return 0;
+}
 
-  sectionList.innerHTML = '';
+function updateDisplay() {
+  const sectionList = document.getElementById("section-list");
+  const currentSection = getCurrentSection();
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+
+  document.getElementById("current-section").innerText = "Now on Section " + currentSection;
+
+  sectionList.innerHTML = "";
 
   for (let i = 0; i < sections.length; i++) {
-    const sectionContainer = document.createElement('div');
-    sectionContainer.className = 'section-container';
+    const Container = document.createElement("div");
+    Container.classList.add("section-container");
 
-    const sectionNumber = document.createElement('div');
-    sectionNumber.className = 'section-number';
+    const sectionNumber = document.createElement("div");
+    sectionNumber.classList.add("section-number");
     sectionNumber.innerText = i + 1;
-    sectionContainer.appendChild(sectionNumber);
+    Container.appendChild(sectionNumber);
 
-    const progressBar = document.createElement('div');
-    progressBar.className = 'progress-bar';
+    const progressBar = document.createElement("div");
+    progressBar.classList.add("progress-bar");
 
-    const progressBarInner = document.createElement('div');
-    progressBarInner.className = 'progress-bar-inner';
-
-    if (i === currentSection - 1) {
-      const currentMinute = now.getMinutes();
-      const sectionDuration = (sections[i].end - sections[i].start) * 60;
-      const elapsed = (now.getHours() - sections[i].start) * 60 + currentMinute;
-      const progressPercentage = (elapsed / sectionDuration) * 100;
-
-      progressBarInner.style.width = progressPercentage + '%';
-      progressBarInner.style.backgroundColor = '#4d4d4d';
-
-      const progressBarTime = document.createElement('div');
-      progressBarTime.className = 'progress-bar-time';
-      progressBarTime.innerText = now.getHours() + ':' + currentMinute.toString().padStart(2, '0');
-      progressBarTime.style.left = progressPercentage + '%';
-      progressBar.appendChild(progressBarTime);
-
-    } else {
-      progressBarInner.style.width = (i < currentSection - 1) ? '100%' : '0%';
+    if (i < currentSection - 1) {
+      progressBar.innerHTML = `<div class="progress-bar-inner ${
+        document.body.classList.contains("dark") ? "dark" : ""
+      }" style="width:100%"></div>`;
+    } else if (i === currentSection - 1) {
+      const progress = ((hours - sections[i].start) * 60 + minutes) / ((sections[i].end - sections[i].start) * 60) * 100;
+      progressBar.innerHTML = `<div class="progress-bar-inner ${
+        document.body.classList.contains("dark") ? "dark" : ""
+      }" style="width:${progress}%">
+        <span class="progress-bar-time">${hours}:${minutes.toString().padStart(2, "0")}</span>
+      </div>`;
     }
-
-    progressBar.appendChild(progressBarInner);
-    sectionContainer.appendChild(progressBar);
 
     for (let hour = sections[i].start + 1; hour < sections[i].end; hour++) {
-      const progressBarMarker = document.createElement('div');
-      progressBarMarker.className = 'progress-bar-marker';
-      const sectionDuration = (sections[i].end - sections[i].start) * 60;
-      const markerPosition = ((hour - sections[i].start) * 60) / sectionDuration * 100;
-      progressBarMarker.style.left = markerPosition + '%';
-      progressBar.appendChild(progressBarMarker);
+      const marker = document.createElement("div");
+      marker.classList.add("progress-bar-marker");
+      marker.classList.add(document.body.classList.contains("dark") ? "dark" : "");
+      marker.style.left = ((hour - sections[i].start) / (sections[i].end - sections[i].start)) * 100 + "%";
+      progressBar.appendChild(marker);
     }
 
-    const sectionStartTime = document.createElement('div');
-    sectionStartTime.className = 'section-time';
-    sectionStartTime.innerText = sections[i].start + ':00';
-    sectionContainer.appendChild(sectionStartTime);
+    Container.appendChild(progressBar);
+
+    const sectionStartTime = document.createElement("div");
+    sectionStartTime.classList.add("section-time");
+    sectionStartTime.innerText = sections[i].start + ":00";
+    progressBar.insertBefore(sectionStartTime, progressBar.firstChild);
+
+    const sectionEndTime = document.createElement("div");
+    sectionEndTime.classList.add("section-time");
+    sectionEndTime.innerText = sections[i].end + ":00";
+    progressBar.appendChild(sectionEndTime);
 
     if (sections[i].label) {
-      const sectionLabel = document.createElement('div');
-      sectionLabel.className = 'section-label';
-      sectionLabel.innerText = ': ' + sections[i].label;
-      sectionContainer.appendChild(sectionLabel);
+      const sectionLabel = document.createElement("div");
+      sectionLabel.classList.add("section-label");
+      sectionLabel.innerText = sections[i].label;
+      progressBar.appendChild(sectionLabel);
     }
 
-    const sectionEndTime = document.createElement('div');
-    sectionEndTime.className = 'section-time';
-    sectionEndTime.innerText = sections[i].end + ':00';
-    sectionContainer.appendChild(sectionEndTime);
-
-    sectionList.appendChild(sectionContainer);
+    sectionList.appendChild(Container);
   }
 }
 
 updateDisplay();
 
- </script>
+</script>
 </body>
 </html>
