@@ -143,6 +143,19 @@ toggleThemeButton.addEventListener('click', () => {
       const currentTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
       return currentTime;
     }
+    
+    // プログレスバーの先端の位置を取得する関数
+function updateProgressBarTimePosition() {
+  const progressBar = document.querySelector('.progress-bar-inner');
+  const progressBarTime = document.querySelector('.progress-bar-time');
+  const progressBarWidth = progressBar.offsetWidth;
+
+  // プログレスバーの先端の位置を計算し、progress-bar-time要素を適切な位置に移動させる
+  progressBarTime.style.left = progressBarWidth + '-16px';
+  progressBarTime.style.top = '2.7px';
+}
+
+// プログレスバーの位置が更新されるたびに、updateProgressBarTimePosition関数を呼び出す
 
 function updateDisplay() {
   const now = new Date();
@@ -195,14 +208,7 @@ function updateDisplay() {
           progressBarTime.className = 'progress-bar-time';
           progressBarTime.innerText = getCurrentTime();
           progressBar.appendChild(progressBarTime);
-              
-  const progressBar = document.querySelectorAll('.progress-bar-inner')[i];
-  const progressBarTimeOr = document.querySelector('.progress-bar-time');
-  const progressBarWidth = progressBar.offsetWidth;
-
-  // プログレスバーの先端の位置を計算し、progress-bar-time要素を適切な位置に移動させる
-  progressBarTimeOr.style.left = progressBarWidth + '-16px';
-  progressBarTimeOr.style.top = '2.7px';
+          updateProgressBarTimePosition();
         }
     
     const progressBarInner = document.createElement('div');
