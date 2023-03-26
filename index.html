@@ -155,7 +155,8 @@ toggleThemeButton.addEventListener('click', () => {
 
 function updateDisplay() {
   const now = new Date();
-  now.setHours(now.getHours() - 6);
+  const noww = new Date();
+  now.setHours(noww.getHours() - 6);
   let currentSection = -1;
 
   for (let i = 0; i < sections.length; i++) {
