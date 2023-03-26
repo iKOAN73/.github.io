@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>現在のセクション</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <style>
     body {
-      font-family: "Arial", sans-serif;
+      font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", sans-serif;
       text-align: center;
       background-color: #ffffff;
       padding: 40px;
-      color: #333333;
+      color: #4d4d4d;
       transition: background-color 0.3s, color 0.3s;
     }
 
@@ -28,7 +29,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: #ffffff;
       margin-bottom: 10px;
       padding: 5px 10px;
       border-radius: 5px;
@@ -81,26 +81,25 @@
 
     .progress-bar-time {
       position: absolute;
-      top: 0;
+      top: -20px;
       font-size: 12px;
       color: #000000;
     }
 
-    button {
+    .toggle-theme {
       margin-top: 20px;
       font-size: 14px;
       padding: 5px 10px;
       border: none;
-      background-color: #4caf50;
-      color: #ffffff;
+      background-color: transparent;
+      color: #4d4d4d;
       cursor: pointer;
       border-radius: 5px;
       transition: background-color 0.3s, color 0.3s;
     }
 
-    button.dark {
-      background-color: #ffffff;
-      color: #000000;
+    .toggle-theme.dark {
+      color: #ffffff;
     }
 
   </style>
@@ -108,7 +107,7 @@
 <body>
   <h1 id="current-section"></h1>
   <div id="section-list"></div>
-  <button id="toggle-theme">背景色を切り替え</button>
+  <button class="toggle-theme"><span class="material-icons">brightness_medium</span></button>
 
   <script>
     const sections = [
@@ -116,13 +115,14 @@
       { start: 7, end: 10 },
       { start: 10, end: 13 },
       { start: 13, end: 16 },
-      { start: 16, end: 19 },
-      { start: 19, end: 22, label: "Journal" },
-      { start: 22, end: 24, label: "END" }];
-    
-    const currentSectionElement = document.getElementById('current-section');
+  { start: 16, end: 19 },
+  { start: 19, end: 22, label: "Journal" },
+  { start: 22, end: 24, label: "END" }
+];
+
+const currentSectionElement = document.getElementById('current-section');
 const sectionList = document.getElementById('section-list');
-const toggleThemeButton = document.getElementById('toggle-theme');
+const toggleThemeButton = document.querySelector('.toggle-theme');
 
 toggleThemeButton.addEventListener('click', () => {
   document.body.classList.toggle('dark');
@@ -166,7 +166,7 @@ function updateDisplay() {
       const progressPercentage = (elapsed / sectionDuration) * 100;
 
       progressBarInner.style.width = progressPercentage + '%';
-      progressBarInner.style.backgroundColor = '#333333';
+      progressBarInner.style.backgroundColor = '#4d4d4d';
 
       const progressBarTime = document.createElement('div');
       progressBarTime.className = 'progress-bar-time';
@@ -175,7 +175,7 @@ function updateDisplay() {
       progressBar.appendChild(progressBarTime);
 
     } else {
-      progressBarInner.style.width = '0%';
+      progressBarInner.style.width = (i < currentSection - 1) ? '100%' : '0%';
     }
 
     progressBar.appendChild(progressBarInner);
@@ -190,10 +190,10 @@ function updateDisplay() {
       progressBar.appendChild(progressBarMarker);
     }
 
-    const sectionTime = document.createElement('div');
-    sectionTime.className = 'section-time';
-    sectionTime.innerText = sections[i].start + ':00';
-    sectionContainer.appendChild(sectionTime);
+    const sectionStartTime = document.createElement('div');
+    sectionStartTime.className = 'section-time';
+    sectionStartTime.innerText = sections[i].start + ':00';
+    sectionContainer.appendChild(sectionStartTime);
 
     if (sections[i].label) {
       const sectionLabel = document.createElement('div');
@@ -202,11 +202,17 @@ function updateDisplay() {
       sectionContainer.appendChild(sectionLabel);
     }
 
+    const sectionEndTime = document.createElement('div');
+    sectionEndTime.className = 'section-time';
+    sectionEndTime.innerText = sections[i].end + ':00';
+    sectionContainer.appendChild(sectionEndTime);
+
     sectionList.appendChild(sectionContainer);
   }
 }
 
 updateDisplay();
-  </script>
+
+ </script>
 </body>
 </html>
