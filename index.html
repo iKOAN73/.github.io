@@ -6,7 +6,7 @@
   <title>Section Progress</title>
   <style>
     body {
-      font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "Meiryo", "メイリオ", sans-serif;
+      font-family: "Sans-serif workhorse", sans-serif;
       color: #333;
       background-color: #fff;
       margin: 0;
@@ -14,92 +14,124 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
+      margin-top: 1rem; /* 上部の空白を狭める */
+    }body.dark {
+  color: rgba(255, 255, 255, 0.6);
+  background-color: #333;
+}
 
-    body.dark {
-      color: rgba(255, 255, 255, 0.6);
-      background-color: #333;
-    }
+.toggle-theme {
+  font-size: 2rem;
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: inherit;
+}
 
-    .toggle-theme {
-      font-size: 2rem;
-      cursor: pointer;
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      color: inherit;
-    }
+.toggle-theme.dark {
+  color: rgba(255, 255, 255, 0.6);
+}
 
-    .toggle-theme.dark {
-      color: rgba(255, 255, 255, 0.6);
-    }
+#current-section {
+  font-size: 2rem;
+  font-weight: 300;
+  margin-top: 1rem;
+  position: relative; /* 現在時刻表示のために親要素を相対位置に設定 */
+}
 
-    #current-section {
-      font-size: 2rem;
-      font-weight: 300;
-      margin-top: 1rem;
-    }
+#current-section::after {
+  content: "Now on Section " attr(data-current-section); /* 現在時刻を表示 */
+  font-size: 1rem;
+  font-weight: 300;
+  position: absolute;
+  top: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-    .section-container {
-      display: flex;
-      align-items: center;
-      margin: 0.5rem 0;
-    }
+.section-container {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+}
 
-    .section-number {
-      width: 2rem;
-      text-align: center;
-    }
+.section-number {
+  width: 2rem;
+  text-align: center;
+}
 
-    .section-label {
-      margin-left: 0.5rem;
-      position: absolute;
-      bottom: -1rem;
-    }
+.section-label {
+  margin-left: 0.5rem;
+  position: absolute;
+  bottom: -1rem;
+}
 
-    .section-time {
-      width: 4rem;
-      font-size: 0.8rem;
-      font-weight: 300;
-    }
+.section-time {
+  width: 4rem;
+  font-size: 0.8rem;
+  font-weight: 300;
+  position: absolute;
+  left: 0; /* セクションの開始時刻を左側に表示 */
+  transform: translateY(-100%);
+}
 
-    .progress-bar {
-      flex-grow: 1;
-      height: 0.5rem;
-      background-color: #ddd;
-      position: relative;
-    }
+.progress-bar {
+  flex-grow: 1;
+  height: 0.5rem;
+  background-color: #ddd;
+  position: relative;
+  border-radius: 5px; /* プログレスバーの角を少し強調 */
+  overflow: hidden; /* オーバーフロー部分を隠す */
+}
 
-    .progress-bar-inner {
-      height: 100%;
-      position: absolute;
-    }
+.progress-bar-inner {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
-    .progress-bar-marker {
-      width: 1px;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.2);
-      position: absolute;
-    }
+.progress-bar-marker {
+  width: 1px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+}
 
-    .progress-bar-time {
-      font-size: 0.8rem;
-      font-weight: 300;
-      position: absolute;
-      transform: translate(-50%, -100%);
-    }
+.progress-bar-time {
+  font-size: 0.8rem;
+  font-weight: 300;
+  position: absolute;
+  transform: translate(-50%, -100%);
+}
 
-    .progress-bar-inner.dark {
-      background-color: rgba(255, 255, 255, 0.6);
-    }
+.progress-bar-inner.dark {
+  background-color: rgba(255, 255, 255, 0.6}
 
-    .progress-bar-marker.dark {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-  </style>
+.progress-bar-marker.dark {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.progress-bar-inner:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: -1;
+}
+
+.progress-bar-inner.dark:before {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+</style>
 </head>
 <body>
-  <div id="current-section"></div>
+  <div id="current-section" data-current-section=""></div>
   <div id="section-list"></div>
   <div class="toggle-theme" onclick="toggleTheme()">&#9680;</div>
   <script>
@@ -107,14 +139,14 @@
       document.body.classList.toggle('dark');
       document.querySelector('.toggle-theme').classList.toggle('dark');
     }
-
-    const sections = [
-      { start: 5, end: 7 },
-      { start: 7, end: 10 },
-      { start: 10, end: 13 },
-      { start: 13, end: 16 },
-      { start: 16, end: 19 },
-      { start: 19, end: 22, label: "Journal" },  { start: 22, end: 24, label: "END" },
+const sections = [
+  { start: 5, end: 7 },
+  { start: 7, end: 10 },
+  { start: 10, end: 13 },
+  { start: 13, end: 16 },
+  { start: 16, end: 19 },
+  { start: 19, end: 22, label: "Journal" },
+  { start: 22, end: 24, label: "END" },
 ];
 
 function getCurrentSection() {
@@ -138,7 +170,7 @@ function updateDisplay() {
   const hours = now.getHours();
   const minutes = now.getMinutes();
 
-  document.getElementById("current-section").innerText = "Now on Section " + currentSection;
+  document.getElementById("current-section").setAttribute("data-current-section", currentSection);
 
   sectionList.innerHTML = "";
 
@@ -154,7 +186,7 @@ function updateDisplay() {
     const progressBar = document.createElement("div");
     progressBar.classList.add("progress-bar");
 
-    if (i < currentSection - 1) {
+    if (i < currentSection - 1 || hours < sections[i].start) { /* 終了したセクションもプログレスバーを残す */
       progressBar.innerHTML = `<div class="progress-bar-inner ${
         document.body.classList.contains("dark") ? "dark" : ""
       }" style="width:100%"></div>`;
@@ -167,25 +199,22 @@ function updateDisplay() {
       </div>`;
     }
 
-    for (let hour = sections[i].start + 1; hour < sections[i].end; hour++) {
-      const marker = document.createElement("div");
-      marker.classList.add("progress-bar-marker");
-      marker.classList.add(document.body.classList.contains("dark") ? "dark" : "");
-      marker.style.left = ((hour - sections[i].start) / (sections[i].end - sections[i].start)) * 100 + "%";
-      progressBar.appendChild(marker);
-    }
-
+    for (let hour = sections[i].start + 1; hour < now.getHours() ? "past" : "" }">
+${sections[i].start}:00
+</div>
+`;
     Container.appendChild(progressBar);
-
-    const sectionStartTime = document.createElement("div");
-    sectionStartTime.classList.add("section-time");
-    sectionStartTime.innerText = sections[i].start + ":00";
-    progressBar.insertBefore(sectionStartTime, progressBar.firstChild);
+    Container.appendChild(sectionStartTime);
 
     const sectionEndTime = document.createElement("div");
     sectionEndTime.classList.add("section-time");
-    sectionEndTime.innerText = sections[i].end + ":00";
-    progressBar.appendChild(sectionEndTime);
+    sectionEndTime.innerHTML = `
+    <div class="section-time-label ${ hours >= sections[i].end ? "past" : "" }">
+      ${sections[i].end}:00
+    </div>
+    `;
+
+    Container.appendChild(sectionEndTime);
 
     if (sections[i].label) {
       const sectionLabel = document.createElement("div");
@@ -196,10 +225,26 @@ function updateDisplay() {
 
     sectionList.appendChild(Container);
   }
+
+  const currentSectionElement = document.querySelector(`.section-number:nth-child(${currentSection})`);
+  const currentSectionOffset = currentSectionElement.offsetTop;
+  const currentSectionLabel = sections[currentSection - 1].label || `Section ${currentSection}`;
+
+  document.getElementById("current-section").innerHTML = `
+  <div>Now on <strong>${currentSectionLabel}</strong></div>
+  <div>Current time: ${hours}:${minutes.toString().padStart(2, "0")}</div>
+  `;
+
+  if (window.innerWidth >= 1024) {
+    sectionList.scrollTo({
+      top: currentSectionOffset - 100,
+      behavior: "smooth",
+    });
+  }
 }
 
 updateDisplay();
-
-</script>
+setInterval(updateDisplay, 1000);
+  </script>
 </body>
 </html>
