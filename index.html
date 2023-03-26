@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja" data-redeviation-bs-uid="70155"><script id="youtube-hd-fjdmkanbdloodhegphphhklnjfngoffa">var ythdlog = () => {};;var ythderror = () => {};</script><head>
-  <meta charset="UTF-1">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>現在のセクション</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans:400,600&amp;display=swap">
@@ -131,6 +131,13 @@ const currentSectionElement = document.getElementById('current-section');
 const sectionList = document.getElementById('section-list');
 const toggleThemeButton = document.querySelector('.toggle-theme');
 
+    const nw = new Date();
+    if (nw.getHours() > 17 || nw.getHours() < 5) {
+      document.body.classList.toggle('dark');
+      toggleThemeButton.classList.toggle('dark');});
+    }
+    
+    
 toggleThemeButton.addEventListener('click', () => {
   document.body.classList.toggle('dark');
   toggleThemeButton.classList.toggle('dark');
@@ -138,7 +145,8 @@ toggleThemeButton.addEventListener('click', () => {
 
     function getCurrentTime() {
       const now = new Date();
-  //now.setHours(now.getHours() - 6);
+      const noww = new Date();
+  now.setHours(noww.getHours() - 6);
       const hours = now.getHours();
       const minutes = now.getMinutes();
       const currentTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
@@ -147,7 +155,7 @@ toggleThemeButton.addEventListener('click', () => {
 
 function updateDisplay() {
   const now = new Date();
-  //now.setHours(now.getHours() - 6);
+  now.setHours(now.getHours() - 6);
   let currentSection = -1;
 
   for (let i = 0; i < sections.length; i++) {
