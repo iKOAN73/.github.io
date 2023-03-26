@@ -239,26 +239,6 @@ function updateDisplay() {
     sectionList.appendChild(sectionContainer);
   }
 
-  // Display end labels
-  const endLabelsContainer = document.createElement('div');
-  endLabelsContainer.className = 'end-labels-container';
-
-  // Journalの部分
-  const journalLabel = document.createElement('div');
-  journalLabel.className = 'section-label';
-  journalLabel.innerText = 'Journal';
-  endLabelsContainer.appendChild(journalLabel);
-  
-  const verticalLabelContainer = document.createElement('div');
-  verticalLabelContainer.className = 'vertical-label';
-  verticalLabelContainer.appendChild(JournalLabel);
-  endLabelsContainer.appendChild(verticalLabelContainer);
-
-  const endLabel = document.createElement('div');
-  endLabel.className = 'section-label';
-  endLabel.innerText = 'END';
-  endLabelsContainer.appendChild(endLabel);
-
   sectionList.appendChild(endLabelsContainer);
 }
 
