@@ -190,13 +190,14 @@ function updateDisplay() {
     progressBar.className = 'progress-bar';
 
     // 現在時刻を追加表示するコードを追加
+    /*
         if (i === currentSection - 1) {
           const progressBarTime = document.createElement('div');
           progressBarTime.className = 'progress-bar-time';
           progressBarTime.innerText = getCurrentTime();
           progressBar.appendChild(progressBarTime);
         }
-    
+    */
     const progressBarInner = document.createElement('div');
     progressBarInner.className = 'progress-bar-inner';
 
@@ -211,7 +212,7 @@ function updateDisplay() {
       const progressBarTime = document.createElement('div');
       progressBarTime.className = 'progress-bar-time';
       progressBarTime.innerText = now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
-      progressBarTime.style.left = progressPercentage + '%';
+      progressBarTime.style.left = progressPercentage - 17 + '%';
       progressBar.appendChild(progressBarTime);
 
     } else {
@@ -256,7 +257,7 @@ function updateDisplay() {
     sectionList.appendChild(sectionContainer);
   }
 }
-setInterval(updateDisplay, 10000); // 10秒 = 10000ミリ秒
+setInterval(updateDisplay, 1000);
 
 
       </script>
