@@ -210,7 +210,7 @@ function updateDisplay() {
     const progressBarInner = document.createElement('div');
     progressBarInner.className = 'progress-bar-inner';
 
-    if (i < currentSection || true) {
+    if (i < currentSection || false) {
       const sectionDuration = (sections[i].end - sections[i].start) * 60;
       const elapsed = (now.getHours() - sections[i].start) * 60 + now.getMinutes();
       const progressPercentage = (elapsed / sectionDuration) * 100;
