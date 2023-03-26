@@ -138,7 +138,7 @@ toggleThemeButton.addEventListener('click', () => {
 
     function getCurrentTime() {
       const now = new Date();
-  //now.setHours(now.getHours() - 6);
+  now.setHours(now.getHours() - 6);
       const hours = now.getHours();
       const minutes = now.getMinutes();
       const currentTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
@@ -147,7 +147,7 @@ toggleThemeButton.addEventListener('click', () => {
 
 function updateDisplay() {
   const now = new Date();
-  //now.setHours(now.getHours() - 6);
+  now.setHours(now.getHours() - 6);
   let currentSection = -1;
 
   for (let i = 0; i < sections.length; i++) {
@@ -159,7 +159,7 @@ function updateDisplay() {
 
   currentSectionElement.innerText = `Section - ${currentSection}｜`;
   if(currentSection < 1 || 7 < currentSection) {
-    currentSectionElement.innerText = `Section - END｜また明日`;
+    currentSectionElement.innerText = `Sleep`;
   }
   sectionList.innerHTML = '';
 
