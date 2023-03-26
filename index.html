@@ -157,7 +157,7 @@ function updateDisplay() {
   }
 
   currentSectionElement.innerText = `Section - ${currentSection}｜`;
-  if(currentSection === -1) {
+  if(currentSection < 1 || 7 < currentSection) {
     currentSectionElement.innerText = `Section - END｜また明日`;
   }
   sectionList.innerHTML = '';
