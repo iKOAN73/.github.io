@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja" data-redeviation-bs-uid="70155"><script id="youtube-hd-fjdmkanbdloodhegphphhklnjfngoffa">var ythdlog = () => {};;var ythderror = () => {};</script><head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>現在のセクション</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans:400,600&amp;display=swap">
@@ -138,6 +138,7 @@ toggleThemeButton.addEventListener('click', () => {
 
     function getCurrentTime() {
       const now = new Date();
+  now.setHours(now.getHours() - 4);
       const hours = now.getHours();
       const minutes = now.getMinutes();
       const currentTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
