@@ -161,8 +161,21 @@ function updateDisplay() {
     const sectionStartTime = document.createElement('div');
     sectionStartTime.className = 'section-time';
     sectionStartTime.innerText = sections[i].start + ':00';
-    sectionContainer.appendChild(sectionStartTime);
-
+    if (i < 6) {
+      sectionContainer.appendChild(sectionStartTime);
+    }else{
+      const startVarticalLavel = document.createElement('div');
+      startVarticalLavel.className = 'vertical-label';
+      startVarticalLavel.appendChild(sectionStartTime);
+      
+      const sectionLabel = document.createElement('div');
+      sectionLabel.className = 'section-label';
+      sectionLabel.style = 'font-size: 10px;'
+      sectionLabel.innerText = 'Ending';
+      startVarticalLavel.appendChild(sectionLabel);
+      
+      sectionContainer.appendChild(startVarticalLavel);
+    }
     const progressBar = document.createElement('div');
     progressBar.className = 'progress-bar';
 
@@ -199,17 +212,30 @@ function updateDisplay() {
       progressBar.appendChild(progressBarMarker);
     }
 
-    if (sections[i].label) {
-      const sectionLabel = document.createElement('div');
-      sectionLabel.className = 'section-label';
-      sectionLabel.innerText = sections[i].label;
-      sectionContainer.appendChild(sectionLabel);
-    }
-
+    //Vertical declare   
+    const verticalLabelContainer = document.createElement('div');
+    verticalLabelContainer.className = 'vertical-label";
+        
     const sectionEndTime = document.createElement('div');
     sectionEndTime.className = 'section-time';
     sectionEndTime.innerText = sections[i].end + ':00';
-    sectionContainer.appendChild(sectionEndTime);
+    
+    if (i < 5) {
+      sectionContainer.appendChild(sectionEndTime);
+    }else{
+      verticalLabelContainer.appendChild(sectionEndTime);
+    }
+    
+    if (sections[i].label) {
+      const sectionLabel = document.createElement('div');
+      sectionLabel.className = 'section-label';
+      sectionLabel.style = 'font-size: 10px;'
+      sectionLabel.innerText = sections[i].label;
+      verticalLabelContainer.appendChild(sectionLabel);
+      sectionContainer.appendChild(verticalLabelContainer);
+    }
+
+
     sectionList.appendChild(sectionContainer);
   }
 
@@ -217,10 +243,16 @@ function updateDisplay() {
   const endLabelsContainer = document.createElement('div');
   endLabelsContainer.className = 'end-labels-container';
 
+  // Journalの部分
   const journalLabel = document.createElement('div');
   journalLabel.className = 'section-label';
   journalLabel.innerText = 'Journal';
   endLabelsContainer.appendChild(journalLabel);
+  
+  const verticalLabelContainer = document.createElement('div');
+  verticalLabelContainer.className = 'vertical-label";
+  verticalLabelContainer.appendChild(JournalLabel);
+  endLabelsContainer.appendChild(verticalLabelContainer);
 
   const endLabel = document.createElement('div');
   endLabel.className = 'section-label';
