@@ -212,7 +212,7 @@ function updateDisplay() {
       progressBarTime.className = 'progress-bar-time';
       progressBarTime.innerText = now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
       progressBarTime.style.left = progressPercentage + '%';
-      sectionContainer.appendChild(progressBarTime);
+      progressBar.appendChild(progressBarTime);
 
     } else {
       progressBarInner.style.width = '0%';
@@ -252,7 +252,6 @@ function updateDisplay() {
       verticalLabelContainer.appendChild(sectionLabel);
       sectionContainer.appendChild(verticalLabelContainer);
     }
-
 
     sectionList.appendChild(sectionContainer);
   }
