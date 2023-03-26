@@ -90,7 +90,7 @@ h1 {
   font-size: 12px;
   color: #4d4d4d;
   font-weight: bold;
-  z-index: 999;
+  z-index: 9999999999;
 }
 
 .toggle-theme {
@@ -146,7 +146,7 @@ toggleThemeButton.addEventListener('click', () => {
     
     // プログレスバーの先端の位置を取得する関数
 function updateProgressBarTimePosition() {
-  const progressBar = document.querySelector('.progress-bar');
+  const progressBar = document.querySelector('.progress-bar-inner');
   const progressBarTime = document.querySelector('.progress-bar-time');
   const progressBarWidth = progressBar.offsetWidth;
 
