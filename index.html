@@ -212,7 +212,7 @@ function updateDisplay() {
       const progressBarTime = document.createElement('div');
       progressBarTime.className = 'progress-bar-time';
       progressBarTime.innerText = now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
-      progressBarTime.style.left = progressPercentage - 17 + '%';
+      progressBarTime.style.left = '-20px';
       progressBar.appendChild(progressBarTime);
 
     } else {
