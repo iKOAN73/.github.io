@@ -78,8 +78,8 @@
       { start: 10, end: 13 },
       { start: 13, end: 16 },
       { start: 16, end: 19 },
-      { start: 19, end: 22 },
-      { start: 22, end: 24 }
+      { start: 19, end: 22, label: "Journal" },
+      { start: 22, end: 24, label: "END" }
     ];
 
     function getCurrentSection() {
@@ -103,13 +103,13 @@
       sectionList.innerHTML = '';
 
       for (let i = 0; i < sections.length; i++) {
-        const sectionContainer = document.createElement('div');
-        sectionContainer.className = 'section-container';
+    const sectionContainer = document.createElement('div');
+    sectionContainer.className = 'section-container';
 
-        const sectionNumber = document.createElement('div');
-        sectionNumber.className = 'section-number';
-        sectionNumber.innerText = i + 1;
-        sectionContainer.appendChild(sectionNumber);
+    const sectionNumber = document.createElement('div');
+    sectionNumber.className = 'section-number';
+    sectionNumber.innerText = i + 1;
+    sectionContainer.appendChild(sectionNumber);
 
     const progressBar = document.createElement('div');
     progressBar.className = 'progress-bar';
@@ -139,66 +139,10 @@
     sectionTime.innerText = sections[i].end === 24 ? '0:00' : sections[i].end + ':00';
     sectionContainer.appendChild(sectionTime);
 
-    if (i === 6) {
+    if (sections[i].label) {
       const sectionLabel = document.createElement('div');
       sectionLabel.className = 'section-label';
-      sectionLabel.innerText = ': Journal';
-      sectionContainer.appendChild(sectionLabel);
-    }
-
-    if (i === 7) {
-      const sectionLabel = document.createElement('div');
-      sectionLabel.className = 'section-label';
-      sectionLabel.innerText = ': END';
-      sectionContainer.appendChild(sectionLabel);
-    }
-
-    sectionList.appendChild(sectionContainer);
-  }
-}
-
-updateDisplay();
-arduino
-Copy code
-    const progressBar = document.createElement('div');
-    progressBar.className = 'progress-bar';
-
-    const progressBarInner = document.createElement('div');
-    progressBarInner.className = 'progress-bar-inner';
-
-    if (i === currentSection - 1) {
-      const now = new Date();
-      const currentMinute = now.getMinutes();
-      const sectionDuration = (sections[i].end - sections[i].start) * 60;
-      const elapsed = (now.getHours() - sections[i].start) * 60 + currentMinute;
-      const progressPercentage = (elapsed / sectionDuration) * 100;
-
-      progressBarInner.style.width = progressPercentage + '%';
-    } else if (i < currentSection - 1) {
-      progressBarInner.style.width = '100%';
-    } else {
-      progressBarInner.style.width = '0%';
-    }
-
-    progressBar.appendChild(progressBarInner);
-    sectionContainer.appendChild(progressBar);
-
-    const sectionTime = document.createElement('div');
-    sectionTime.className = 'section-time';
-    sectionTime.innerText = sections[i].end === 24 ? '0:00' : sections[i].end + ':00';
-    sectionContainer.appendChild(sectionTime);
-
-    if (i === 6) {
-      const sectionLabel = document.createElement('div');
-      sectionLabel.className = 'section-label';
-      sectionLabel.innerText = ': Journal';
-      sectionContainer.appendChild(sectionLabel);
-    }
-
-    if (i === 7) {
-      const sectionLabel = document.createElement('div');
-      sectionLabel.className = 'section-label';
-      sectionLabel.innerText = ': END';
+      sectionLabel.innerText = ': ' + sections[i].label;
       sectionContainer.appendChild(sectionLabel);
     }
 
