@@ -145,8 +145,8 @@ toggleThemeButton.addEventListener('click', () => {
     }
     
     // プログレスバーの先端の位置を取得する関数
-function updateProgressBarTimePosition() {
-  const progressBar = document.querySelector('.progress-bar-inner');
+function updateProgressBarTimePosition(i) {
+  const progressBar = document.querySelectorAll('.progress-bar-inner')[i];
   const progressBarTime = document.querySelector('.progress-bar-time');
   const progressBarWidth = progressBar.offsetWidth;
 
