@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja" data-redeviation-bs-uid="70155"><script id="youtube-hd-fjdmkanbdloodhegphphhklnjfngoffa">var ythdlog = () => {};;var ythderror = () => {};</script><head>
-  <meta charset="UTF-7">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>現在のセクション</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans:400,600&amp;display=swap">
@@ -146,6 +146,7 @@ toggleThemeButton.addEventListener('click', () => {
 
 function updateDisplay() {
   const now = new Date();
+  now.setHours(now.getHours() + 12);
   let currentSection = -1;
 
   for (let i = 0; i < sections.length; i++) {
@@ -156,7 +157,9 @@ function updateDisplay() {
   }
 
   currentSectionElement.innerText = `Section - ${currentSection}｜`;
-
+  if(currentSection === -1) {
+    currentSectionElement.innerText = `Section - END｜また明日`;
+  }
   sectionList.innerHTML = '';
 
   for (let i = 0; i < sections.length; i++) {
