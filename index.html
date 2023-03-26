@@ -4,117 +4,119 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>現在のセクション</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans:400,600&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <style>
     body {
-      font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", sans-serif;
+      font-family: "Work Sans", sans-serif;
       text-align: center;
       background-color: #ffffff;
-      padding: 40px;
+      padding: 20px;
       color: #4d4d4d;
       transition: background-color 0.3s, color 0.3s;
+      margin: 0;
     }
+body.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
 
-    body.dark {
-      background-color: #000000;
-      color: #ffffff;
-    }
+h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
 
-    h1 {
-      font-size: 32px;
-      margin-bottom: 20px;
-    }
+.section-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
 
-    .section-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      padding: 5px 10px;
-      border-radius: 5px;
-    }
+.section-number {
+  flex-shrink: 0;
+  font-size: 18px;
+  font-weight: bold;
+  width: 20px;
+}
 
-    .section-number {
-      flex-shrink: 0;
-      font-size: 18px;
-      font-weight: bold;
-      width: 20px;
-    }
+.progress-bar {
+  flex-grow: 1;
+  height: 20px;
+  background-color: #dddddd;
+  border-radius: 5px;
+  margin: 0 10px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #4d4d4d;
+}
 
-    .progress-bar {
-      flex-grow: 1;
-      height: 20px;
-      background-color: #dddddd;
-      border-radius: 5px;
-      margin: 0 10px;
-      position: relative;
-      overflow: hidden;
-    }
+.progress-bar-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #4d4d4d;
+  border-radius: 5px;
+}
 
-    .progress-bar-inner {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      background-color: #dddddd;
-      border-radius: 5px;
-    }
+.section-time {
+  flex-shrink: 0;
+  font-size: 14px;
+  width: 40px;
+  text-align: left;
+}
 
-    .section-time {
-      flex-shrink: 0;
-      font-size: 14px;
-      width: 40px;
-    }
+.section-label {
+  font-size: 14px;
+  color: #999999;
+}
 
-    .section-label {
-      font-size: 14px;
-      color: #999999;
-    }
+.progress-bar-marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: #aaaaaa;
+}
 
-    .progress-bar-marker {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background-color: #aaaaaa;
-    }
+.progress-bar-time {
+  position: absolute;
+  top: -30px;
+  left: -15px;
+  font-size: 12px;
+  color: #4d4d4d;
+}
 
-    .progress-bar-time {
-      position: absolute;
-      top: -20px;
-      font-size: 12px;
-      color: #000000;
-    }
+.toggle-theme {
+  margin-top: 20px;
+  font-size: 14px;
+  padding: 5px 10px;
+  border: none;
+  background-color: transparent;
+  color: #4d4d4d;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
 
-    .toggle-theme {
-      margin-top: 20px;
-      font-size: 14px;
-      padding: 5px 10px;
-      border: none;
-      background-color: transparent;
-      color: #4d4d4d;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    .toggle-theme.dark {
-      color: #ffffff;
-    }
-
+.toggle-theme.dark {
+  color: #ffffff;
+}
   </style>
 </head>
 <body>
   <h1 id="current-section"></h1>
   <div id="section-list"></div>
   <button class="toggle-theme"><span class="material-icons">brightness_medium</span></button>
-
   <script>
     const sections = [
       { start: 5, end: 7 },
-      { start: 7, end: 10 },
-      { start: 10, end: 13 },
-      { start: 13, end: 16 },
+        { start: 7, end: 10 },
+  { start: 10, end: 13 },
+  { start: 13, end: 16 },
   { start: 16, end: 19 },
   { start: 19, end: 22, label: "Journal" },
   { start: 22, end: 24, label: "END" }
@@ -153,16 +155,20 @@ function updateDisplay() {
     sectionNumber.innerText = i + 1;
     sectionContainer.appendChild(sectionNumber);
 
+    const sectionStartTime = document.createElement('div');
+    sectionStartTime.className = 'section-time';
+    sectionStartTime.innerText = sections[i].start + ':00';
+    sectionContainer.appendChild(sectionStartTime);
+
     const progressBar = document.createElement('div');
     progressBar.className = 'progress-bar';
 
     const progressBarInner = document.createElement('div');
     progressBarInner.className = 'progress-bar-inner';
 
-    if (i === currentSection - 1) {
-      const currentMinute = now.getMinutes();
+    if (i < currentSection) {
       const sectionDuration = (sections[i].end - sections[i].start) * 60;
-      const elapsed = (now.getHours() - sections[i].start) * 60 + currentMinute;
+      const elapsed = (now.getHours() - sections[i].start) * 60 + now.getMinutes();
       const progressPercentage = (elapsed / sectionDuration) * 100;
 
       progressBarInner.style.width = progressPercentage + '%';
@@ -170,12 +176,12 @@ function updateDisplay() {
 
       const progressBarTime = document.createElement('div');
       progressBarTime.className = 'progress-bar-time';
-      progressBarTime.innerText = now.getHours() + ':' + currentMinute.toString().padStart(2, '0');
+      progressBarTime.innerText = now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
       progressBarTime.style.left = progressPercentage + '%';
       progressBar.appendChild(progressBarTime);
 
     } else {
-      progressBarInner.style.width = (i < currentSection - 1) ? '100%' : '0%';
+      progressBarInner.style.width = '0%';
     }
 
     progressBar.appendChild(progressBarInner);
@@ -190,15 +196,10 @@ function updateDisplay() {
       progressBar.appendChild(progressBarMarker);
     }
 
-    const sectionStartTime = document.createElement('div');
-    sectionStartTime.className = 'section-time';
-    sectionStartTime.innerText = sections[i].start + ':00';
-    sectionContainer.appendChild(sectionStartTime);
-
     if (sections[i].label) {
       const sectionLabel = document.createElement('div');
       sectionLabel.className = 'section-label';
-      sectionLabel.innerText = ': ' + sections[i].label;
+      sectionLabel.innerText = sections[i].label;
       sectionContainer.appendChild(sectionLabel);
     }
 
@@ -206,13 +207,28 @@ function updateDisplay() {
     sectionEndTime.className = 'section-time';
     sectionEndTime.innerText = sections[i].end + ':00';
     sectionContainer.appendChild(sectionEndTime);
-
     sectionList.appendChild(sectionContainer);
   }
+
+  // Display end labels
+  const endLabelsContainer = document.createElement('div');
+  endLabelsContainer.className = 'end-labels-container';
+
+  const journalLabel = document.createElement('div');
+  journalLabel.className = 'section-label';
+  journalLabel.innerText = 'Journal';
+  endLabelsContainer.appendChild(journalLabel);
+
+  const endLabel = document.createElement('div');
+  endLabel.className = 'section-label';
+  endLabel.innerText = 'END';
+  endLabelsContainer.appendChild(endLabel);
+
+  sectionList.appendChild(endLabelsContainer);
 }
 
 updateDisplay();
-
- </script>
+      </script>
 </body>
 </html>
+
