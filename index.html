@@ -208,7 +208,7 @@ function updateDisplay() {
           progressBarTime.className = 'progress-bar-time';
           progressBarTime.innerText = getCurrentTime();
           progressBar.appendChild(progressBarTime);
-          updateProgressBarTimePosition();
+          updateProgressBarTimePosition(i);
         }
     
     const progressBarInner = document.createElement('div');
