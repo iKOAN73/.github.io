@@ -223,21 +223,19 @@ function updateDisplay() {
       const progressBarTime = document.createElement('div');
       progressBarTime.className = 'progress-bar-time';
       progressBarTime.innerText = now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
+      
+      //uhojoijkok
+      progressBarTime.style.left = progressPercentage - 4 + '%';
+      console.log(progressBarTime.style.left);
+      console.log(progressBarTime.style.left);
+      progressBar.appendChild(progressBarTime);
+      
     } else {
       progressBarInner.style.width = '0%';
     }
 
     progressBar.appendChild(progressBarInner);
     sectionContainer.appendChild(progressBar);
-    
-    //uhojoijkok
-    const leftposel = document.querySelector('.progress-bar-inner');
-    console.log(leftposel);
-    const pos = leftposel.getBoundingClientRect().left;
-    console.log(pos);
-    progressBarTime.style.left = pos - 40 + 'px';
-    console.log(progressBarTime.style.left);
-    progressBar.appendChild(progressBarTime);
 
     for (let hour = sections[i].start + 1; hour < sections[i].end; hour++) {
       const progressBarMarker = document.createElement('div');
