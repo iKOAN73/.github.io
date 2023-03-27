@@ -92,7 +92,7 @@ h1 {
   z-index: 9999999999;
   text-align: right;
   transform: translateX(-100%);
-  /* padding-right: 3px; */
+  padding-right: 4px;
 }
 
 .toggle-theme {
@@ -226,7 +226,7 @@ function updateDisplay() {
 
     const progressBarTime = document.createElement('div');
 progressBarTime.className = 'progress-bar-time';
-progressBarTime.style.left = Math.min(progressPercentage, 100) - 1  + '%';
+progressBarTime.style.left = Math.min(progressPercentage, 100) + '%';
 progressBarTime.innerText = getCurrentTime();
       
       // 終わったセクションについては非表示
