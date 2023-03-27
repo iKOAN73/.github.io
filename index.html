@@ -199,7 +199,7 @@ function updateDisplay() {
     progressBar.className = 'progress-bar';
 
     // 現在時刻を追加表示するコードを追加
-    
+    /*
         if (i === currentSection - 1) {
           const progressBarTime = document.createElement('div');
           progressBarTime.className = 'progress-bar-time';
@@ -208,7 +208,7 @@ function updateDisplay() {
           //progressBarTime.style.left = leftpos.style.left - 40 + 'px';
           progressBar.appendChild(progressBarTime);
         }
-    
+    */
     const progressBarInner = document.createElement('div');
     progressBarInner.className = 'progress-bar-inner';
 
@@ -279,7 +279,7 @@ function updateDisplay() {
   }
 }
   updateDisplay();
-  setInterval(updateDisplay, 20000);
+  setInterval(updateDisplay, 500);
 
 
       </script>
