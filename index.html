@@ -226,8 +226,16 @@ function updateDisplay() {
     const progressBarTime = document.createElement('div');
 progressBarTime.className = 'progress-bar-time';
 progressBarTime.style.left = Math.min(progressPercentage, 100)  + '%';
-
 progressBarTime.innerText = getCurrentTime();
+      
+      // 終わったセクションについては非表示
+      if (currentSection > i + 1) {
+        progressBarTime.style.display = 'none';
+      } else {
+        progressBarTime.style.display = 'block';
+      }
+
+      
 progressBar.appendChild(progressBarTime);
 
       
