@@ -90,7 +90,6 @@ h1 {
   color: #FFFFFF;
   font-weight: bold;
   z-index: 9999999999;
-  transform: translateX(-50%);
 }
 
 .toggle-theme {
@@ -221,11 +220,10 @@ function updateDisplay() {
       progressBarInner.style.backgroundColor = '#4d4d4d';
 
       const progressBarTime = document.createElement('div');
-      progressBarTime.className = 'progress-bar-time';
-      progressBarTime.innerText = getCurrentTime();
-      progressBarTime.style.transform = `translateX(${progressPercentage}%)`; // 変更: leftプロパティを削除し、translateX()関数で位置を調整
-
-      progressBar.appendChild(progressBarTime);
+    progressBarTime.className = 'progress-bar-time';
+    progressBarTime.style.left = ((now.getHours() - sections[i].start) / (sections[i].end - sections[i].start) * 100) + '%';
+    progressBarTime.innerText = getCurrentTime();
+    progressBar.appendChild(progressBarTime);
       
     } else {
       progressBarInner.style.width = '0%';
