@@ -223,12 +223,13 @@ function updateDisplay() {
       progressBarInner.style.width = progressPercentage + '%';
       progressBarInner.style.backgroundColor = '#4d4d4d';
 
-      const progressBarTime = document.createElement('div');
-    progressBarTime.className = 'progress-bar-time';
-    progressBarTime.style.left = Math.min(progressBarInner.offsetWidth - progressBarTime.offsetWidth, progressBarInner.offsetWidth) + 'px';
+    const progressBarTime = document.createElement('div');
+progressBarTime.className = 'progress-bar-time';
+progressBarTime.style.left = Math.min(progressBarInner.offsetWidth - progressBarTime.offsetWidth, progressBarInner.offsetWidth) + 'px';
 
-    progressBarTime.innerText = getCurrentTime();
-    progressBar.appendChild(progressBarTime);
+progressBarTime.innerText = getCurrentTime();
+progressBar.appendChild(progressBarTime);
+
       
     } else {
       progressBarInner.style.width = '0%';
