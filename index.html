@@ -223,11 +223,13 @@ function updateDisplay() {
       const progressBarTime = document.createElement('div');
       progressBarTime.className = 'progress-bar-time';
       progressBarTime.innerText = now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
+      
+      //uhojoijkok
       const leftposel = document.querySelector('progress-bar-inner');
-      const pos = leftposel.getBoundingClientRect().left;
-      progressBarTime.style.left = pos - 40 + 'px';
       console.log(leftposel);
+      const pos = leftposel.getBoundingClientRect().left;
       console.log(pos);
+      progressBarTime.style.left = pos - 40 + 'px';
       console.log(progressBarTime.style.left);
       progressBar.appendChild(progressBarTime);
 
