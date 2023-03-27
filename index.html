@@ -230,14 +230,14 @@ function updateDisplay() {
     progressBar.appendChild(progressBarInner);
     sectionContainer.appendChild(progressBar);
     
-      //uhojoijkok
-      const leftposel = document.querySelectorAll('.progress-bar-inner')[i];
-      console.log(leftposel);
-      const pos = leftposel.getBoundingClientRect().left;
-      console.log(pos);
-      progressBarTime.style.left = pos - 40 + 'px';
-      console.log(progressBarTime.style.left);
-      progressBar.appendChild(progressBarTime);
+    //uhojoijkok
+    const leftposel = document.querySelector('.progress-bar-inner');
+    console.log(leftposel);
+    const pos = leftposel.getBoundingClientRect().left;
+    console.log(pos);
+    progressBarTime.style.left = pos - 40 + 'px';
+    console.log(progressBarTime.style.left);
+    progressBar.appendChild(progressBarTime);
 
     for (let hour = sections[i].start + 1; hour < sections[i].end; hour++) {
       const progressBarMarker = document.createElement('div');
