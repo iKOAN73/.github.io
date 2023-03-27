@@ -225,7 +225,7 @@ function updateDisplay() {
       progressBarTime.innerText = now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
       
       //uhojoijkok
-      const leftposel = document.querySelector('progress-bar-inner');
+      const leftposel = document.querySelectorAll('.progress-bar-inner')[i];
       console.log(leftposel);
       const pos = leftposel.getBoundingClientRect().left;
       console.log(pos);
