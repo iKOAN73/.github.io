@@ -204,6 +204,8 @@ function updateDisplay() {
           const progressBarTime = document.createElement('div');
           progressBarTime.className = 'progress-bar-time';
           progressBarTime.innerText = getCurrentTime();
+          //const leftpos = document.getElementsByClassName('progress-bar-inner')[i];
+          //progressBarTime.style.left = leftpos.style.left - 40 + 'px';
           progressBar.appendChild(progressBarTime);
         }
     
@@ -222,7 +224,7 @@ function updateDisplay() {
       progressBarTime.className = 'progress-bar-time';
       progressBarTime.innerText = now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
       const leftpos = document.getElementsByClassName('progress-bar-inner')[i];
-      progressBarTime.style.left = leftpos - 20 + 'px';
+      progressBarTime.style.left = leftpos.style.left - 40 + 'px';
       progressBar.appendChild(progressBarTime);
 
     } else {
