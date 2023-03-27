@@ -146,7 +146,7 @@ toggleThemeButton.addEventListener('click', () => {
 
     function getCurrentTime() {
       const now = new Date();
-      const hours = now.getHours();
+      const hours = now.getHours() - 1;
       const minutes = now.getMinutes();
       const currentTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
       return currentTime;
@@ -154,6 +154,8 @@ toggleThemeButton.addEventListener('click', () => {
 
 function updateDisplay() {
   const now = new Date();
+  const nw = new Date();
+  now.setHours(nw.getHours() - 1);
   let currentSection = -1;
 
   for (let i = 0; i < sections.length; i++) {
