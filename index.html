@@ -225,7 +225,7 @@ function updateDisplay() {
 
     const progressBarTime = document.createElement('div');
 progressBarTime.className = 'progress-bar-time';
-progressBarTime.style.left = Math.min(progressBarInner.offsetWidth - progressBarTime.offsetWidth, progressBarInner.offsetWidth) + 'px';
+progressBarTime.style.left = Math.min(progressPercentage, 100) + '%';
 
 progressBarTime.innerText = getCurrentTime();
 progressBar.appendChild(progressBarTime);
