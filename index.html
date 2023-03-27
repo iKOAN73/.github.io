@@ -91,7 +91,7 @@ h1 {
   font-weight: bold;
   z-index: 9999999999;
   text-align: right;
-  transform: translateX(50%);
+  transform: translateX(-100%);
 }
 
 .toggle-theme {
@@ -223,7 +223,8 @@ function updateDisplay() {
 
       const progressBarTime = document.createElement('div');
     progressBarTime.className = 'progress-bar-time';
-    progressBarTime.style.left = (((now.getHours() - sections[i].start) / (sections[i].end - sections[i].start)) * 100) + '%';
+    progressBarTime.style.left = Math.min(progressBarInner.offsetWidth - progressBarTime.offsetWidth, progressBarInner.offsetWidth) + 'px';
+
     progressBarTime.innerText = getCurrentTime();
     progressBar.appendChild(progressBarTime);
       
