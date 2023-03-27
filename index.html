@@ -225,9 +225,15 @@ function updateDisplay() {
       progressBarTime.innerText = now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
       
       //uhojoijkok
-      progressBarTime.style.left = progressPercentage - 8 + '%';
-      console.log(progressBarTime.style.left);
-      console.log(progressBarTime.style.left);
+      var screenWidth = window.innerWidth;
+      // 画面の幅に応じて要素の位置を変更する
+      if (screenWidth < 768) { // スマートフォンの場合
+        progressBarTime.style.left = progressPercentage - 30 + '%';
+      } else if (screenWidth < 992) { // タブレットの場合
+        progressBarTime.style.left = progressPercentage - 20 + '%';
+      } else { // パソコンの場合
+        progressBarTime.style.left = progressPercentage - 10 + '%';
+      }
       progressBar.appendChild(progressBarTime);
       
     } else {
